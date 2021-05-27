@@ -20,14 +20,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mobdeve.leej.thejuanpc.model.user;
 
+import java.util.ArrayList;
+
 public class Registration extends AppCompatActivity {
     private EditText et_first_name, et_last_name,et_username_reg,et_password_reg;
     private Button btn_register;
     private int found = 0;
-    private  int loop_done = 0;
     private ModulePrefs modulePrefs;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = db.collection("users");
+    private ArrayList<user> userArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,39 +58,23 @@ public class Registration extends AppCompatActivity {
 
     private  void checkDuplicate( String firstName, String lastName, String pass, String un){
         found = 0;
-        collectionReference.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                // Preventing Errors
-                if(error != null){
-                    return;
-                }
 
+        for (user user1 : userArrayList){
 
-                // Making a loop to get all data:
-                for(QueryDocumentSnapshot documentSnapshot : value){
-
-                    user model = documentSnapshot.toObject(user.class);
-
-                    String un1 = model.getUsername();
-
-                    if(un1.equals(un)){
-                        found = 1;
-                        break;
-                    }
-                }
-
-
-                if(found == 1){
-                    Toast.makeText(getApplicationContext(),"Username already taken",Toast.LENGTH_SHORT).show();
-                }
-
-                if (found == 0){
-                    SaveUser( firstName, lastName, pass, un );
-                }
-
+            if(user1.getUsername().equals(un)){
+                found = 1;
+                break;
             }
-        });
+
+        }
+
+        if(found == 1){
+            Toast.makeText(getApplicationContext(),"Username already taken",Toast.LENGTH_SHORT).show();
+        }
+
+        if (found == 0){
+            SaveUser( firstName, lastName, pass, un );
+        }
 
     }
 
@@ -96,9 +82,6 @@ public class Registration extends AppCompatActivity {
 
 
             user model = new user(firstName,lastName,pass,un);
-
-            // This will create document
-            //We have learned how to make and receive java custom object
 
             collectionReference
                     .document(un)
@@ -111,7 +94,6 @@ public class Registration extends AppCompatActivity {
                             modulePrefs.saveUser("logged_in_user",model);
                             startActivity(intent);
                             finish();
-                            System.exit(0);
 
                         }
                     })
@@ -121,9 +103,28 @@ public class Registration extends AppCompatActivity {
 
                         }
                     });
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        collectionReference.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                // Preventing Errors
+                if(error != null){
+                    return;
+                }
+                // Making a loop to get all data:
+                for(QueryDocumentSnapshot documentSnapshot : value){
+
+                    user model = documentSnapshot.toObject(user.class);
+                    userArrayList.add(model);
+                }
+            }
+        });
+
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
