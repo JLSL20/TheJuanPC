@@ -150,7 +150,7 @@ public class BlogDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 liked_users = blogs.getLiked_users();
-                if(checkLike(liked_users,user) ==0){
+                if(isLike ==0){
 
 
                         like_btn.setBackgroundResource(R.drawable.ic_like1); // This means liking
@@ -166,7 +166,7 @@ public class BlogDetails extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
+                                        isLike = 1;
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -205,7 +205,7 @@ public class BlogDetails extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
+                                        isLike = 0;
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
