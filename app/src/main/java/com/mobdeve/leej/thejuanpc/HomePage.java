@@ -123,57 +123,57 @@ public class HomePage extends AppCompatActivity {
         super.onStart();
 
 
+        if(build_guides.isEmpty() || build_guides == null) {
 
+            Query blogsQuery = blogsColRef.whereEqualTo("blog_status", "Build Guides");
 
-        Query blogsQuery = blogsColRef.whereEqualTo("blog_status","Build Guides");
+            blogsQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            blogs1 = document.toObject(Blogs.class);
+                            build_guides.add(blogs1);
+                        }
 
-        blogsQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document: task.getResult()){
-                        blogs1 = document.toObject(Blogs.class);
-                        build_guides.add(blogs1);
+                        featured_guide = getFeatured(build_guides);
+                        featured_title.setText(featured_guide.getBlog_title());
+                        featured_username.setText(featured_guide.getUsername());
+                        Picasso.get().load(featured_guide.getFeatured_image()).into(featured_image);
+
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                        homePage_guides.setLayoutManager(layoutManager);
+                        blogsListAdapter = new BlogsListAdapter(getApplicationContext(), build_guides);
+                        homePage_guides.setAdapter(blogsListAdapter);
+                    } else {
+
                     }
-
-                    featured_guide =  getFeatured(build_guides);
-                    featured_title.setText(featured_guide.getBlog_title());
-                    featured_username.setText(featured_guide.getUsername());
-                    Picasso.get().load(featured_guide.getFeatured_image()).into(featured_image);
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    homePage_guides.setLayoutManager(layoutManager);
-                    blogsListAdapter = new BlogsListAdapter(getApplicationContext(), build_guides);
-                    homePage_guides.setAdapter(blogsListAdapter);
                 }
-                else {
+            });
+        }
 
-                }
-            }
-        });
+        if(blog_posts.isEmpty() || blog_posts == null) {
 
+            Query blogsQuery = blogsColRef.whereEqualTo("blog_status", "Blog Post");
 
-        blogsQuery = blogsColRef.whereEqualTo("blog_status","Blog Post");
+            blogsQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            blogs2 = document.toObject(Blogs.class);
+                            blog_posts.add(blogs2);
+                        }
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                        homePage_posts.setLayoutManager(layoutManager);
+                        blogsListAdapter = new BlogsListAdapter(getApplicationContext(), blog_posts);
+                        homePage_posts.setAdapter(blogsListAdapter);
+                    } else {
 
-        blogsQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document: task.getResult()){
-                        blogs2 = document.toObject(Blogs.class);
-                        blog_posts.add(blogs2);
                     }
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    homePage_posts.setLayoutManager(layoutManager);
-                    blogsListAdapter = new BlogsListAdapter(getApplicationContext(), blog_posts);
-                    homePage_posts.setAdapter(blogsListAdapter);
                 }
-                else {
-
-                }
-            }
-        });
-
+            });
+        }
 
 
 
