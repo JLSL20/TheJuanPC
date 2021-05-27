@@ -71,15 +71,6 @@ public class HomePage extends AppCompatActivity {
         initializeVariables();
         loggedin_user = modulePrefs.loadUser("logged_in_user");
 
-        //featured_guide = Blog with highest upvote
-
-
-        //Picasso to get image to put to featured_image
-
-
-
-
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.ic_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -106,7 +97,6 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-
     private void initializeVariables() {
         featured_image = findViewById(R.id.featured_image);
         featured_title = findViewById(R.id.featured_title);
@@ -115,8 +105,6 @@ public class HomePage extends AppCompatActivity {
         homePage_posts = findViewById(R.id.homePage_posts);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
     }
-
-
 
     @Override
     protected void onStart() {
