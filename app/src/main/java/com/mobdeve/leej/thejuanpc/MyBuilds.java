@@ -164,7 +164,6 @@ public class MyBuilds extends AppCompatActivity {
             });
 
         } else if(from.equalsIgnoreCase("SeeMoreBlogs")||from.equalsIgnoreCase("BlogDetails")){
-            Toast.makeText(getApplicationContext(),"NANDITO PO AKO",Toast.LENGTH_SHORT).show();
             Query query = blogsColRef.whereEqualTo("username",user.getUsername());
 
             FirestoreRecyclerOptions<Blogs> options = new FirestoreRecyclerOptions.Builder<Blogs>()
