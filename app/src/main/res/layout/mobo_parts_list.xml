@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/item_order_show_cardview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="15dp"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    card_view:cardElevation="10dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/mobo_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/mobo_model"
+                android:layout_width="wrap_content"
+                android:text="Gigabyte X570 Aorus Master"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/mobo_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gigabyte"
+                android:textColor="@color/black"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/mobo_form_factor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="ATX"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/mobo_chipset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="X570"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/mobo_ram_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:text="Recommended RAM Speed: 3200" />
+
+            <TextView
+                android:id="@+id/mobo_wattage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:text="103W TDP" />
+
+            <TextView
+                android:id="@+id/mobo_socket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:text="Socket: AM4" />
+
+            <TextView
+                android:id="@+id/mobo_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:text="P 19,900"
+                android:textStyle="bold"/>
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/mobo_part_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

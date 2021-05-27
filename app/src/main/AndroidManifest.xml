@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mobdeve.leej.thejuanpc">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/the_juan_pc_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/the_juan_pc_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TheJuanPC">
+        <activity android:name=".BlogDetails"></activity>
+        <activity android:name=".CreateBlog" />
+        <activity android:name=".BuildDetails" />
+        <activity android:name=".MyBuilds" />
+        <activity android:name=".PartsList" />
+        <activity android:name=".SystemBuilder" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".Registration" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

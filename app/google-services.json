@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "994553742971",
+    "project_id": "the-juan-pc",
+    "storage_bucket": "the-juan-pc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994553742971:android:561531f6c1e8ceaded84de",
+        "android_client_info": {
+          "package_name": "com.mobdeve.leej.thejuanpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994553742971-dflqtn7405gto49k5q1s4d18osdrkhs2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1RO7R0ztSAvyNB91XVkjkeyUK1NfZNyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994553742971-dflqtn7405gto49k5q1s4d18osdrkhs2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
