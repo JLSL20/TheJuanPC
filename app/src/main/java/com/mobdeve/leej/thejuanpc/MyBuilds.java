@@ -195,7 +195,6 @@ public class MyBuilds extends AppCompatActivity {
                 @Override
                 public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                     Blogs blog = documentSnapshot.toObject(Blogs.class);
-                    Toast.makeText(getApplicationContext(),blog.getBlog_status(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), BlogDetails.class);
                     intent.putExtra("blog_details",blog);
                     modulePrefs.saveStringPreferences("from", "SeeMoreBlogs");
