@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 
@@ -156,6 +157,15 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+
+        featured_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BlogDetails.class);
+                intent.putExtra("blog_details", featured_guide);
+                startActivity(intent);
+            }
+        });
     }
 
     private Blogs getFeatured(ArrayList<Blogs> build_guides){
