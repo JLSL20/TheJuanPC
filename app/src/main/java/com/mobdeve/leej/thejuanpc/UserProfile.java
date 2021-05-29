@@ -156,6 +156,8 @@ public class UserProfile extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        user.setStatus("verified");
+                        modulePrefs.saveUser("logged_in_user",user);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
