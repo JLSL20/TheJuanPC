@@ -55,17 +55,13 @@ public class SystemBuilder extends AppCompatActivity {
     private  CollectionReference buildColRef = db.collection("Builds");
     private DocumentSnapshot mLastQuerieDocument;
 
-
-
     private ModulePrefs modulePrefs;
     private double total_price = 0;
     private int total_wattage = 0;
     private Intent intent;
     private int part_validation = 0;
     private String temp;
-    //added
     private String from;
-
 
     private ArrayList<CPU> CPU_list = new ArrayList<>();
     private ArrayList<Motherboard> Mobo_list = new ArrayList<>();
@@ -103,8 +99,6 @@ public class SystemBuilder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_builder);
-
-
         modulePrefs = new ModulePrefs(getApplicationContext());
         populate();
         init();
@@ -119,6 +113,7 @@ public class SystemBuilder extends AppCompatActivity {
         total_price1.setText("Total Price: " + Double.toString(total_price));
         total_wattage1.setText("Total Wattage: " + Integer.toString(total_wattage));
         user = modulePrefs.loadUser("logged_in_user");
+
         //For each button onClick, move to next Activity passing ArrayList, save SharedPreference of what type
         cpu_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +227,6 @@ public class SystemBuilder extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), UserProfile.class);
                         startActivity(intent);
                         finish();
-
                     }
                 }
             }
@@ -257,8 +251,6 @@ public class SystemBuilder extends AppCompatActivity {
             build_name.setText(temp);
         }
     }
-
-
 
     private int validateParts() {
         CPU temp = cpu;
@@ -325,7 +317,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(mobo != null) {
-            //    mobo_image.setImageResource(mobo.getImgID());
             Picasso.get().load(mobo.getImage()).into(mobo_image);
             mobo_name.setText(mobo.getModel());
             mobo_wattage.setText(Integer.toString(mobo.getWattage()));
@@ -338,7 +329,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(gpu != null) {
-            //   gpu_image.setImageResource(gpu.getImgID());
             Picasso.get().load(gpu.getImage()).into(gpu_image);
             gpu_name.setText(gpu.getModel());
             gpu_wattage.setText(Integer.toString(gpu.getWattage()));
@@ -351,7 +341,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(ram != null) {
-            //    ram_image.setImageResource(ram.getImgID());
             Picasso.get().load(ram.getImage()).into(ram_image);
             ram_name.setText(ram.getModel());
             ram_wattage.setText(Integer.toString(ram.getWattage()));
@@ -364,7 +353,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(psu != null) {
-            //    psu_image.setImageResource(psu.getImgID());
             Picasso.get().load(psu.getImage()).into(psu_image);
             psu_name.setText(psu.getModel());
             psu_wattage.setText(Integer.toString(psu.getWattage()));
@@ -376,7 +364,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(storage != null) {
-            //   storage_image.setImageResource(storage.getImgID());
             Picasso.get().load(storage.getImage()).into(storage_image);
             storage_name.setText(storage.getModel());
             storage_wattage.setText(Integer.toString(storage.getWattage()));
@@ -389,7 +376,6 @@ public class SystemBuilder extends AppCompatActivity {
         }
 
         if(cases != null) {
-            //   case_image.setImageResource(cases.getImgID());
             Picasso.get().load(cases.getImage()).into(case_image);
             case_name.setText(cases.getModel());
             case_wattage.setText("0");
@@ -399,7 +385,6 @@ public class SystemBuilder extends AppCompatActivity {
         else {
             case_name.setText("No Case Chosen yet!");
         }
-
     }
 
     private void initializeVariables(){
@@ -449,21 +434,16 @@ public class SystemBuilder extends AppCompatActivity {
         total_wattage1 = findViewById(R.id.total_wattage);
         build_name = findViewById(R.id.build_name);
         save_button = findViewById(R.id.save_build);
-
     }
 
     private void populate() {
-
-        // GET ALL GPU FROM DB
         gpuColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                // Preventing Errors
                 if(error != null){
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     GPU model = documentSnapshot.toObject(GPU.class);
@@ -472,7 +452,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-        // GET ALL CPU FROM DB
         cpuColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -481,7 +460,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     CPU model = documentSnapshot.toObject(CPU.class);
@@ -490,7 +468,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-        // GET ALL PSU FROM DB
         psuColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -499,7 +476,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     PSU model = documentSnapshot.toObject(PSU.class);
@@ -508,8 +484,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-
-        // GET ALL Storage FROM DB
         storageColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -518,7 +492,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     Storage model = documentSnapshot.toObject(Storage.class);
@@ -527,7 +500,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-        // GET ALL Case FROM DB
         caseColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -536,7 +508,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     Cases model = documentSnapshot.toObject(Cases.class);
@@ -545,7 +516,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-        // GET ALL RAM FROM DB
         ramColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -554,7 +524,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     RAM model = documentSnapshot.toObject(RAM.class);
@@ -563,7 +532,6 @@ public class SystemBuilder extends AppCompatActivity {
             }
         });
 
-        // GET ALL CPU FROM DB
         motherboardColRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -572,7 +540,6 @@ public class SystemBuilder extends AppCompatActivity {
                     return;
                 }
 
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     Motherboard model = documentSnapshot.toObject(Motherboard.class);
@@ -583,7 +550,6 @@ public class SystemBuilder extends AppCompatActivity {
 
     }
 
-    //added
     @Override
     public void onBackPressed() {
         super.onBackPressed();

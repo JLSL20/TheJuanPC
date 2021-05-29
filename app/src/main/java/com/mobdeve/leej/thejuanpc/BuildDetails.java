@@ -35,6 +35,7 @@ public class BuildDetails extends AppCompatActivity {
             storage_name, storage_price, storage_wattage,
             psu_name, psu_price, psu_wattage,
             total_price1, total_wattage1, build_name;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Builds build;
     private CollectionReference gpuColRef = db.collection("GPU");
@@ -54,11 +55,6 @@ public class BuildDetails extends AppCompatActivity {
     private RAM ramObj;
     private String from;
     private  ModulePrefs modulePrefs;
-
-
-
-
-
     private ImageView cpu_image, gpu_image, mobo_image, ram_image, case_image, storage_image, psu_image;
 
     @Override
@@ -68,7 +64,6 @@ public class BuildDetails extends AppCompatActivity {
         modulePrefs = new ModulePrefs(getApplicationContext());
         from = modulePrefs.getStringPreferences("from");
 
-        // Get Build object here
         build = (Builds) getIntent().getSerializableExtra("build_details");
         init();
     }
@@ -93,18 +88,14 @@ public class BuildDetails extends AppCompatActivity {
                         gpu_name.setText(gpuObj.getModel());
                         gpu_price.setText(String.valueOf(gpuObj.getPrice()));
                         gpu_wattage.setText(String.valueOf(gpuObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
 
-
-
-    Query cpuQuery = cpuColRef.whereEqualTo("model",build.getCpu());
+        Query cpuQuery = cpuColRef.whereEqualTo("model",build.getCpu());
 
         cpuQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -116,15 +107,12 @@ public class BuildDetails extends AppCompatActivity {
                         cpu_name.setText(cpuObj.getModel());
                         cpu_price.setText(String.valueOf(cpuObj.getPrice()));
                         cpu_wattage.setText(String.valueOf(cpuObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
-
 
         Query psuQuery = psuColRef.whereEqualTo("model",build.getPsu());
 
@@ -138,11 +126,9 @@ public class BuildDetails extends AppCompatActivity {
                         psu_name.setText(psuObj.getModel());
                         psu_price.setText(String.valueOf(psuObj.getPrice()));
                         psu_wattage.setText(String.valueOf(psuObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
@@ -159,11 +145,9 @@ public class BuildDetails extends AppCompatActivity {
                         mobo_name.setText(moboObj.getModel());
                         mobo_price.setText(String.valueOf(moboObj.getPrice()));
                         mobo_wattage.setText(String.valueOf(moboObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
@@ -179,11 +163,9 @@ public class BuildDetails extends AppCompatActivity {
                         Picasso.get().load(caseObj.getImage()).into(case_image);
                         case_name.setText(caseObj.getModel());
                         case_price.setText(String.valueOf(caseObj.getPrice()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
@@ -200,11 +182,9 @@ public class BuildDetails extends AppCompatActivity {
                         storage_name.setText(storageObj.getModel());
                         storage_price.setText(String.valueOf(storageObj.getPrice()));
                         storage_wattage.setText(String.valueOf(storageObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
@@ -221,11 +201,9 @@ public class BuildDetails extends AppCompatActivity {
                         ram_name.setText(ramObj.getModel());
                         ram_price.setText(String.valueOf(ramObj.getPrice()));
                         ram_wattage.setText(String.valueOf(ramObj.getWattage()));
-
                     }
                 }
                 else {
-
                 }
             }
         });
@@ -285,6 +263,5 @@ public class BuildDetails extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
     }
 }

@@ -56,7 +56,6 @@ public class MyBuilds extends AppCompatActivity {
     private TextView tv_header;
     private ListenerRegistration listner;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,14 +96,12 @@ public class MyBuilds extends AppCompatActivity {
                         finish();
                         overridePendingTransition(0,0);
                         return true;
-
-
                 }
                 return false;
             }
         });
-
     }
+
     private void setUpRecyclerView(){
         user = modulePrefs.loadUser("logged_in_user");
         from = modulePrefs.getStringPreferences("from");
@@ -211,34 +208,23 @@ public class MyBuilds extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot,
                                 @Nullable FirebaseFirestoreException error) {
-                // preventing errors:
-
                 if(error != null){
                     Toast.makeText(MyBuilds.this, "Error", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //getting Data & Updating TextView:
                 if (documentSnapshot.exists()){
-
-                    // No, let's retrieve our java object
                     Builds model = documentSnapshot.toObject(Builds.class);
-
                     Intent intent = new Intent(getApplicationContext(),CreateBlog.class);
                     intent.putExtra("build",model);
                     startActivity(intent);
                     finish();
                 }
                 else{
-
                 }
-
             }
         });
     }
-
-
-
 
     @Override
     protected void onStart() {
@@ -248,7 +234,6 @@ public class MyBuilds extends AppCompatActivity {
         }else if(from.equalsIgnoreCase("SeeMoreBlogs") ||from.equalsIgnoreCase("BlogDetails")){
             myBlogsSMAdapter.startListening();
         }
-
     }
 
     @Override
@@ -259,9 +244,7 @@ public class MyBuilds extends AppCompatActivity {
         } else if(from.equalsIgnoreCase("SeeMoreBlogs") ||from.equalsIgnoreCase("BlogDetails")){
             myBlogsSMAdapter.stopListening();
         }
-
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

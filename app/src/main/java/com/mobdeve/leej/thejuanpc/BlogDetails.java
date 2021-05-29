@@ -51,7 +51,6 @@ public class BlogDetails extends AppCompatActivity {
     private int upvotes;
     private String from;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,44 +65,32 @@ public class BlogDetails extends AppCompatActivity {
 
         initializeVariables();
 
-        //Get Blog Object from RecyclerView
+        // Getting Blogs object that is passed to this Activity
         blogs = (Blogs) getIntent().getSerializableExtra("blog_details");
-        //Get Build Object from Database using yung blog build_name
 
+        // Retrieving the build that is tied to this Blogs object
         buildRef = db.collection("Builds").document(blogs.getBuild_name() + " " + blogs.getUsername());
         listner = buildRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot,
                                 @Nullable FirebaseFirestoreException error) {
-                // preventing errors:
-
                 if(error != null){
                     Toast.makeText(BlogDetails.this, "Error", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                //getting Data & Updating TextView:
                 if (documentSnapshot.exists()){
-
-                    // No, let's retrieve our java object
                     Builds = documentSnapshot.toObject(Builds.class);
-
                     build_name.setText(Builds.getBuild_name());
                     build_price.setText(String.valueOf(Builds.getTotalEstimatePrice()));
                     build_wattage.setText(String.valueOf(Builds.getTotalWattage()));
                     pc_placeholder.setImageResource(R.drawable.pc_icon);
                 }
                 else{
-
                 }
             }
         });
 
-
         user = modulePrefs.loadUser("logged_in_user");
-
-
-
         isLike = checkLike(blogs.getLiked_users(), user);
 
         //Set blog details
@@ -112,11 +99,9 @@ public class BlogDetails extends AppCompatActivity {
         blog_username.setText("By " + blogs.getUsername());
         blog_date.setText(blogs.getDate_created());
         blog_content.setText(blogs.getContent());
-        //Picasso to display Blog Featured Image
         Picasso.get().load(blogs.getFeatured_image()).into(featured_image);
 
-
-
+        // Back button -> returns user to previous screen depending where they came from
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +122,7 @@ public class BlogDetails extends AppCompatActivity {
             }
         });
 
+        // On click of build in post -> Will display the parts list; goes to BuildDetails Activity
         featured_build.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,13 +132,12 @@ public class BlogDetails extends AppCompatActivity {
             }
         });
 
+        // Function to execute whenever a user presses the like button
         like_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 liked_users = blogs.getLiked_users();
-                if(isLike ==0){
-
-
+                if(isLike == 0){
                         like_btn.setBackgroundResource(R.drawable.ic_like1); // This means liking
                         liked_users.add(user.getUsername());
                         upvotes = blogs.getUpvotes();
@@ -172,12 +157,8 @@ public class BlogDetails extends AppCompatActivity {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-
                                     }
                                 });
-
-
-
                 }else{
 
                     if(isLike == 1) { //This means disliking
@@ -211,20 +192,15 @@ public class BlogDetails extends AppCompatActivity {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-
                                     }
                                 });
-
                     }
                 }
             }
         });
     }
-
     private int checkLike(ArrayList<String> usersLiked, user user) {
-
         for(String users : usersLiked) {
-
             if(users.equalsIgnoreCase(user.getUsername())) {
                 like_btn.setBackgroundResource(R.drawable.ic_like1);
                 return 1;

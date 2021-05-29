@@ -57,7 +57,6 @@ public class UserProfile extends AppCompatActivity {
     private CollectionReference gpuColRef = db.collection("GPU");
     private ModulePrefs modulePrefs;
 
-
     private ImageView profile_pic;
     private TextView username;
     private Button status, see_more_builds,btn_logout,btn_see_blogs;
@@ -81,9 +80,6 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void init() {
-
-
-
         profile_pic = findViewById(R.id.profile_pic);
         username = findViewById(R.id.username);
         status = findViewById(R.id.status);
@@ -124,20 +120,17 @@ public class UserProfile extends AppCompatActivity {
                 modulePrefs.saveStringPreferences("from", "SeeMoreBuilds");
                 startActivity(intent);
                 finish();
-
             }
         });
 
         profile_pic.setImageResource(R.drawable.polyfrog);
         username.setText(user.getUsername());
-
         status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 verifyStatus(user.getUsername());
             }
         });
-
 
         btn_logout.setOnClickListener(v -> {
             modulePrefs.clearLoggedInUserPref();
@@ -146,21 +139,16 @@ public class UserProfile extends AppCompatActivity {
             finish();
         });
 
-
         btn_see_blogs.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), MyBuilds.class);
             modulePrefs.saveStringPreferences("from", "SeeMoreBlogs");
             startActivity(intent);
             finish();
         });
-
     }
 
-
     private void verifyStatus(String username) {
-
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(username);
-
         Map<String, Object> map = new HashMap<>();
         map.put("status", "verified");
 
@@ -168,13 +156,11 @@ public class UserProfile extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                     }
                 });
     }
@@ -192,31 +178,21 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot,
                                 @Nullable FirebaseFirestoreException error) {
-                // preventing errors:
 
                 if(error != null){
                     Toast.makeText(UserProfile.this, "Error", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //getting Data & Updating TextView:
                 if (documentSnapshot.exists()){
-
-                    // No, let's retrieve our java object
                     user model = documentSnapshot.toObject(user.class);
-
                     String status1 = model.getStatus();
-
                     status.setText(status1);
-
                 }
                 else{
-
                 }
-
             }
         });
-
 
         if(buildArrayList.isEmpty() || buildArrayList == null){
             Query buildsQuery = buildColRef.whereEqualTo("username",user.getUsername());
@@ -228,8 +204,6 @@ public class UserProfile extends AppCompatActivity {
                         for(QueryDocumentSnapshot document: task.getResult()){
                             build1 = document.toObject(Builds.class);
                             buildArrayList.add(build1);
-
-
                         }
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                         rv_list_build.setLayoutManager(layoutManager);
@@ -237,16 +211,10 @@ public class UserProfile extends AppCompatActivity {
                         rv_list_build.setAdapter(buildListAdapter);
                     }
                     else {
-
                     }
                 }
             });
         }
-
-
-
-
-
 
         if(blogsArrayList.isEmpty() || blogsArrayList == null){
             Query blogsQuery = blogColRef.whereEqualTo("username",user.getUsername());
@@ -265,14 +233,10 @@ public class UserProfile extends AppCompatActivity {
                         rv_list_blogs.setAdapter(blogsListAdapter);
                     }
                     else {
-
                     }
                 }
             });
         }
-
-
-
     }
 
     @Override

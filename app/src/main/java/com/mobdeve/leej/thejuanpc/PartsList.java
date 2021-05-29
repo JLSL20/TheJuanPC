@@ -90,7 +90,6 @@ public class PartsList extends AppCompatActivity {
             PSU_list = (ArrayList<PSU>) getIntent().getSerializableExtra("List");
             psuListAdapter = new PSUListAdapter(getApplicationContext(), PSU_list);
             rv_list.setAdapter(psuListAdapter);
-
         }
         else if (partType.equalsIgnoreCase("Storage")) {
             Storage_list = (ArrayList<Storage>) getIntent().getSerializableExtra("List");

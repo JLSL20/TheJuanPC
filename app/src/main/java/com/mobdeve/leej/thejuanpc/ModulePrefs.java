@@ -29,7 +29,6 @@ public class ModulePrefs {
         appPreferences = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
     }
 
-
     public void saveStringPreferences(String key, String value){
         SharedPreferences.Editor prefsEditor = appPreferences.edit();
         prefsEditor.putString(key,value);
@@ -40,7 +39,6 @@ public class ModulePrefs {
         SharedPreferences.Editor prefsEditor = appPreferences.edit();
         prefsEditor.remove("logged_in_user");
         prefsEditor.commit();
-
     }
 
     public String getStringPreferences(String key){
@@ -57,7 +55,6 @@ public class ModulePrefs {
         return (appPreferences.getString(key, ""));
     }
 
-
     public void clearPartsPreferences() {
         SharedPreferences.Editor prefsEditor = appPreferences.edit();
         prefsEditor.remove("savedCPU");
@@ -70,7 +67,6 @@ public class ModulePrefs {
         prefsEditor.remove("savedName");
 
         prefsEditor.commit();
-
     }
 
     public void clearPreferences() {

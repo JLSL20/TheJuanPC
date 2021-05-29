@@ -51,9 +51,7 @@ public class Registration extends AppCompatActivity {
             }else {
                 checkDuplicate(et_first_name.getText().toString().replace(" ", "") , et_last_name.getText().toString().replace(" ", "") , et_password_reg.getText().toString().replace(" ", "") ,   et_username_reg.getText().toString().replace(" ", "") );
             }
-
         });
-
     }
 
     private  void checkDuplicate( String firstName, String lastName, String pass, String un){
@@ -65,7 +63,6 @@ public class Registration extends AppCompatActivity {
                 found = 1;
                 break;
             }
-
         }
 
         if(found == 1){
@@ -75,11 +72,9 @@ public class Registration extends AppCompatActivity {
         if (found == 0){
             SaveUser( firstName, lastName, pass, un );
         }
-
     }
 
     private void SaveUser( String firstName, String lastName, String pass, String un){
-
 
             user model = new user(firstName,lastName,pass,un);
 
@@ -94,13 +89,11 @@ public class Registration extends AppCompatActivity {
                             modulePrefs.saveUser("logged_in_user",model);
                             startActivity(intent);
                             finish();
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
                         }
                     });
     }
@@ -111,19 +104,17 @@ public class Registration extends AppCompatActivity {
         collectionReference.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                // Preventing Errors
+
                 if(error != null){
                     return;
                 }
-                // Making a loop to get all data:
-                for(QueryDocumentSnapshot documentSnapshot : value){
 
+                for(QueryDocumentSnapshot documentSnapshot : value){
                     user model = documentSnapshot.toObject(user.class);
                     userArrayList.add(model);
                 }
             }
         });
-
     }
     @Override
     public void onBackPressed() {

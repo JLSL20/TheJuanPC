@@ -44,11 +44,10 @@ public class CreateBlog extends AppCompatActivity {
     private Builds selected_build = new Builds();
     private ModulePrefs modulePrefs;
     private Blogs blogTemp = new Blogs();
-    private  static  final int GALLERY_REQUEST = 1;
+    private static final int GALLERY_REQUEST = 1;
     private Uri imageUri = null;
     private Date date;
     private user logged_in_user;
-
 
     private ProgressDialog progress;
     private StorageReference mStorageReference;
@@ -71,8 +70,7 @@ public class CreateBlog extends AppCompatActivity {
 
         initializeVariables();
 
-        //Load User Information
-        // Get Build Object
+        //Build object taken from MyBuilds Activity
         selected_build = (Builds) getIntent().getSerializableExtra("build");
 
         //Display Build Object
@@ -81,16 +79,17 @@ public class CreateBlog extends AppCompatActivity {
         build_wattage.setText(Integer.toString(selected_build.getTotalWattage()));
         pc_placeholder.setImageResource(R.drawable.pc_icon);
 
-
+        // Will display previously inputted blog title that was not published
         if(modulePrefs.getPartType("blog_title") != null) {
             blog_title.setText(modulePrefs.getPartType("blog_title"));
         }
 
+        //Will display previously inputted blog content that was not published
         if(modulePrefs.getPartType("blog_content") != null) {
             blog_content.setText(modulePrefs.getPartType("blog_content"));
         }
 
-        //On Click of Change Button -> Go back to PC List, but saves Blog Title, and Blog Content, if there is
+        //On Click of Change Button -> Go back to MyBuilds to change build to feature, but saves Blog Title, and Blog Content, if there is.
         change_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,13 +130,7 @@ public class CreateBlog extends AppCompatActivity {
         publish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startUploading();
-                //Code to get featured_image link here
-
-                //Code to save blog Item to database
-
-
             }
         });
     }
@@ -156,16 +149,13 @@ public class CreateBlog extends AppCompatActivity {
         change_btn = findViewById(R.id.change_btn);
     }
 
-
-
-
-
-
+    // Function to upload selected picture
     private void startUploading(){
 
-        if( TextUtils.isEmpty(blog_title.getText().toString()) || TextUtils.isEmpty(blog_content.getText().toString()) ||imageUri == null){
+        if(TextUtils.isEmpty(blog_title.getText().toString()) || TextUtils.isEmpty(blog_content.getText().toString()) ||imageUri == null){
             Toast.makeText(getApplicationContext(),"No empty field allowed..",Toast.LENGTH_SHORT).show();
-        }else {
+        }
+        else {
             progress.setMessage("Posting blog...");
             progress.show();
             StorageReference filepath = mStorageReference.child("Blogs_img").child(imageUri.getLastPathSegment());
@@ -176,7 +166,6 @@ public class CreateBlog extends AppCompatActivity {
                     filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
                             blogTemp.setBlog_title(blog_title.getText().toString());
                             blogTemp.setContent(blog_content.getText().toString());
                             blogTemp.setUsername(logged_in_user.getUsername());
@@ -187,8 +176,6 @@ public class CreateBlog extends AppCompatActivity {
                             else {
                                 blogTemp.setBlog_status("Build Guides");
                             }
-
-                            //Getting Date?
                             date = Calendar.getInstance().getTime();
                             SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
                             blogTemp.setDate_created(df.format(date));
@@ -196,7 +183,6 @@ public class CreateBlog extends AppCompatActivity {
                             blogTemp.setBuild_name(selected_build.getBuild_name());
                             blogTemp.setUpvotes(0);
                             blogTemp.setFeatured_image(uri.toString());
-
 
                             blogsColRef
                                     .document(blogTemp.getBlog_title()+ " " + logged_in_user.getUsername())
@@ -218,20 +204,18 @@ public class CreateBlog extends AppCompatActivity {
                                     });
                         }
                     });
-
                     progress.dismiss();
                 }
             })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
                         }
                     });
         }
     }
 
-
+    // Function on upload result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

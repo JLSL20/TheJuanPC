@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private CollectionReference collectionReference = db.collection("users");
     private user logged_in_user;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         btn_signup = findViewById(R.id.btn_signup);
 
-
         if(logged_in_user == null || logged_in_user.equals("Nothing Saved")){
             btn_login.setOnClickListener(v -> {
 
@@ -54,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     validate(et_username.getText().toString().replace(" ", "") ,et_password.getText().toString().replace(" ", ""));
                 }
-
             });
 
             btn_signup.setOnClickListener(v -> {
@@ -62,17 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Registration.class);
                 startActivity(intent);
                 finish();
-
             });
         }else {
-
             Intent intent = new Intent(getApplicationContext(), HomePage.class);
             modulePrefs.saveUser("logged_in_user",logged_in_user);
             startActivity(intent);
             finish();
         }
-
-
     }
 
     private void validate(String un, String pwd ){
@@ -81,13 +73,10 @@ public class MainActivity extends AppCompatActivity {
         collectionReference.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                // Preventing Errors
                 if(error != null){
                     return;
                 }
 
-
-                // Making a loop to get all data:
                 for(QueryDocumentSnapshot documentSnapshot : value){
 
                     user model = documentSnapshot.toObject(user.class);
@@ -104,14 +93,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
                 if(found == 0){
                     Toast.makeText(getApplicationContext(), "USER DOES NOT EXIST", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
     }
 
     @Override

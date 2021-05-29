@@ -63,7 +63,6 @@ public class HomePage extends AppCompatActivity {
         modulePrefs = new ModulePrefs(getApplicationContext());
         modulePrefs.saveStringPreferences("from", "HomePage");
         init();
-
     }
 
     private void init() {
@@ -89,12 +88,10 @@ public class HomePage extends AppCompatActivity {
                         finish();
                         overridePendingTransition(0,0);
                         return true;
-
                 }
                 return false;
             }
         });
-
     }
 
     private void initializeVariables() {
@@ -109,7 +106,6 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
 
         if(build_guides.isEmpty() || build_guides == null) {
 
@@ -134,7 +130,6 @@ public class HomePage extends AppCompatActivity {
                         blogsListAdapter = new BlogsListAdapter(getApplicationContext(), build_guides);
                         homePage_guides.setAdapter(blogsListAdapter);
                     } else {
-
                     }
                 }
             });
@@ -157,15 +152,10 @@ public class HomePage extends AppCompatActivity {
                         blogsListAdapter = new BlogsListAdapter(getApplicationContext(), blog_posts);
                         homePage_posts.setAdapter(blogsListAdapter);
                     } else {
-
                     }
                 }
             });
         }
-
-
-
-
     }
 
     private Blogs getFeatured(ArrayList<Blogs> build_guides){
@@ -177,7 +167,6 @@ public class HomePage extends AppCompatActivity {
             if(blogs1.getUpvotes() > minimum) {
                 index = counter;
             }
-
             counter++;
         }
         return build_guides.get(index);
