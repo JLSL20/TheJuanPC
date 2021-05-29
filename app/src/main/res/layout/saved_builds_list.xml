@@ -30,6 +30,8 @@
             android:textColor="@color/black"
             android:gravity="center"
             android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textStyle="bold" />
 
         <TextView
