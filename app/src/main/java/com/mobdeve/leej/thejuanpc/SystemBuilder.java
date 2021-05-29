@@ -193,44 +193,48 @@ public class SystemBuilder extends AppCompatActivity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                part_validation = validateParts();
 
-                if(part_validation == 1) { // Save build properties
-                    system_build.setBuild_name(build_name.getText().toString());
-                    system_build.setPc_case(cases.getModel());
-                    system_build.setCpu(cpu.getModel());
-                    system_build.setGpu(gpu.getModel());
-                    system_build.setMotherboard(mobo.getModel());
-                    system_build.setPsu(psu.getModel());
-                    system_build.setRam(ram.getModel());
-                    system_build.setStorage(storage.getModel());
-                    system_build.setUsername(user.getUsername());
-                    system_build.setTotalEstimatePrice(total_price);
-                    system_build.setTotalWattage(total_wattage);
+                if(build_name.getText().toString().equalsIgnoreCase("") || build_name.getText().toString().equalsIgnoreCase(" ")){
+                    Toast.makeText(getApplicationContext(),"Please set build name",Toast.LENGTH_SHORT).show();
+                } else {
+                    part_validation = validateParts();
 
-                    buildColRef
-                            .document(system_build.getBuild_name()+" "+system_build.getUsername())
-                            .set(system_build)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
+                    if(part_validation == 1) { // Save build properties
+                        system_build.setBuild_name(build_name.getText().toString());
+                        system_build.setPc_case(cases.getModel());
+                        system_build.setCpu(cpu.getModel());
+                        system_build.setGpu(gpu.getModel());
+                        system_build.setMotherboard(mobo.getModel());
+                        system_build.setPsu(psu.getModel());
+                        system_build.setRam(ram.getModel());
+                        system_build.setStorage(storage.getModel());
+                        system_build.setUsername(user.getUsername());
+                        system_build.setTotalEstimatePrice(total_price);
+                        system_build.setTotalWattage(total_wattage);
 
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
+                        buildColRef
+                                .document(system_build.getBuild_name()+" "+system_build.getUsername())
+                                .set(system_build)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 
-                                }
-                            });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
 
-                    modulePrefs.clearPartsPreferences();
-                    intent = new Intent(getApplicationContext(), UserProfile.class);
-                    startActivity(intent);
-                    finish();
+                                    }
+                                });
 
+                        modulePrefs.clearPartsPreferences();
+                        intent = new Intent(getApplicationContext(), UserProfile.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
                 }
-
             }
         });
     }
