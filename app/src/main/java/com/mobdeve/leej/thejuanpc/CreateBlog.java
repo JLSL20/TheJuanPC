@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -162,7 +163,9 @@ public class CreateBlog extends AppCompatActivity {
 
     private void startUploading(){
 
-        if(imageUri != null){
+        if( TextUtils.isEmpty(blog_title.getText().toString()) || TextUtils.isEmpty(blog_content.getText().toString()) ||imageUri == null){
+            Toast.makeText(getApplicationContext(),"No empty field allowed..",Toast.LENGTH_SHORT).show();
+        }else {
             progress.setMessage("Posting blog...");
             progress.show();
             StorageReference filepath = mStorageReference.child("Blogs_img").child(imageUri.getLastPathSegment());
@@ -225,10 +228,7 @@ public class CreateBlog extends AppCompatActivity {
 
                         }
                     });
-        }else {
-            Toast.makeText(getApplicationContext(),"Please upload a picture",Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
