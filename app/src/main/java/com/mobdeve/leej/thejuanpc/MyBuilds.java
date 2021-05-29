@@ -53,7 +53,7 @@ public class MyBuilds extends AppCompatActivity {
     private ArrayList<Builds> buildArrayList = new ArrayList<Builds>();
     private String from;
 
-    private TextView tv_header;
+    private TextView tv_header, tv_description;
     private ListenerRegistration listner;
 
     @Override
@@ -64,11 +64,14 @@ public class MyBuilds extends AppCompatActivity {
         setUpRecyclerView();
         from = modulePrefs.getStringPreferences("from");
         tv_header = findViewById(R.id.tv_header);
+        tv_description = findViewById(R.id.tv_description);
 
         if(from.equalsIgnoreCase("SeeMoreBuilds") || from.equalsIgnoreCase("BuildDetails") ||from.equalsIgnoreCase("MyBuilds") ){
             tv_header.setText("MY BUILDS");
+            tv_description.setText("Swipe left to Create Blog; Swipe right to Delete Build");
         }else if (from.equalsIgnoreCase("SeeMoreBlogs")||from.equalsIgnoreCase("BlogDetails")){
             tv_header.setText("MY BLOGS");
+            tv_description.setText("Swipe right to Delete Blog");
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);

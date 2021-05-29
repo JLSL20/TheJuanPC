@@ -19,6 +19,16 @@
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:layout_below="@+id/tv_header"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_my"
@@ -28,7 +38,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="70dp"
-        android:layout_below="@+id/tv_header"/>
+        android:layout_below="@+id/tv_description"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
