@@ -138,7 +138,6 @@ public class MyBuilds extends AppCompatActivity {
                     switch (direction){
                         case ItemTouchHelper.LEFT:
                             buildRef = myBuildsSMAdapter.createBlog(viewHolder.getAdapterPosition());
-                            Toast.makeText(MyBuilds.this, buildRef.getPath(), Toast.LENGTH_SHORT).show();
                             getBuild(buildRef);
 
                             break;
