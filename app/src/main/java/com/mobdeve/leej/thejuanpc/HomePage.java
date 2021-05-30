@@ -164,6 +164,7 @@ public class HomePage extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), BlogDetails.class);
                 intent.putExtra("blog_details", featured_guide);
                 startActivity(intent);
+                finish();
             }
         });
     }
